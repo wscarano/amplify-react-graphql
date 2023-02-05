@@ -40,9 +40,28 @@ const App = ({ signOut }) => {
     setNotes(notesFromAPI);
   }
 
-  async function deleteNote({ id }) {
+  async function createNote(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const image = form.get("image");
+    const data = {
+      name: form.get("name"),
+      description: form.get("description"),
+      image: image.name,
+    };
+    if (!!data.image) await Storage.put(data.name, image);
+    await API.graphql({
+      query: createNoteMutation,
+      variables: { input: data },
+    });
+    fetchNotes();
+    event.target.reset();
+  }
+
+  async function deleteNote({ id, name }) {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
+    await Storage.remove(name);
     await API.graphql({
       query: deleteNoteMutation,
       variables: { input: { id } },
