@@ -1,0 +1,14 @@
+{
+  "resourceName": "objectstorage",
+  "policyUUID": "508dc986",
+  "bucketName": "amplify-react-graphql-s3-objects",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
